@@ -8,32 +8,38 @@ var sget = require('sget');
 startCalculator();
 
 
-function choosingNumbers(){
-	var firstNumber = sget("Please enter your first number.");
-	var secondNumber = sget("Please enter your second number.");
-	firstNumber = parseInt(firstNumber);
-	firstNumber = parseInt(firstNumber);
-}
-
 function addition(){
-	choosingNumbers();
-
+	var firstNumber = Number(sget("Please enter your first number."));
+	var secondNumber = Number(sget("Please enter your second number."));
+	var answer = firstNumber + secondNumber;
+	console.log("The sum of " + firstNumber + " and " + secondNumber + " is " + answer + ".");
 }
 
 function subtraction(){
-	var calcChoice = sget("");
+	var firstNumber = Number(sget("Please enter your first number."));
+	var secondNumber = Number(sget("Please enter your second number."));
+	var answer = firstNumber - secondNumber;
+	console.log("The difference of " + firstNumber + " and " + secondNumber + " is " + answer + ".");
 }
 
 function multiplication(){
-
+	var firstNumber = Number(sget("Please enter your first number."));
+	var secondNumber = Number(sget("Please enter your second number."));
+	var answer = firstNumber * secondNumber;
+	console.log("The product of " + firstNumber + " and " + secondNumber + " is " + answer + ".");
 }
 
 function division(){
-
+	var firstNumber = Number(sget("Please enter your first number."));
+	var secondNumber = Number(sget("Please enter your second number."));
+	var answer = firstNumber/secondNumber;
+	console.log("The quotient of " + firstNumber + " and " + secondNumber + " is " + answer + ".");
 }
 
 function squareRoot(){
-
+	var firstNumber = Number(sget("Please enter your number."));
+	var answer = Math.sqrt(firstNumber);
+	console.log("The square root of " + firstNumber +  " is " + answer + ".");
 }
 
 function quitCalculator(){
@@ -41,48 +47,52 @@ function quitCalculator(){
 }
 
 function startCalculator(){
-	console.log("Hello!  Welcome to Nikki and Mariah's calculator!\nPlease select the number of which calculation you would like to perform.  Type 'quit' to exit.")
+	console.log("Hello!  Welcome to Nikki and Mariah's calculator!")
 	calculator();
 }
 
 
 function calculator(){
-	var calcChoice = sget("Testing");
+	var calcChoice = sget("Please select the number of which calculation you would like to perform.\nType 'quit' to exit.\n1. Addition\n2. Subtraction\n3. Multiplication\n4. Division\n5. Square Root");
 	calcChoice = parseInt(calcChoice);
 		switch(calcChoice){
 			case 1:
-				console.log("")
+				console.log("ADDITION")
 				addition();
-
+				calculator();
 				break;
 
 			case 2:
-				console.log("");
-				
+				console.log("SUBTRACTION");
+				subtraction();
+				calculator();
 				break;
 
 			case 3:
-				console.log("");
-				
+				console.log("MULTIPLICATION");
+				multiplication();
+				calculator();
 				break;
 
 			case 4:
-				
-					console.log("");
-			
+				console.log("DIVISION");
+				division();
+				calculator();
 				break;
 
 			case 5:
-				console.log("");
-				
+				console.log("SQUARE ROOT");
+				squareRoot();
+				calculator();
 				break;
 
 			case 6:
-				console.log("")
-			
+				console.log("QUIT")
+				quitCalculator();
 				break;
 
 			default: 
-				console.log("");
+				console.log("Not a valid choice.\nPlease try again.");
+				calculator();
 		}
 }
