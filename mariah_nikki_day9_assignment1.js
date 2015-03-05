@@ -43,7 +43,8 @@ function squareRoot(){
 }
 
 function quitCalculator(){
-
+	console.log("Thank you for using our calculator.\n Have a great day!")
+	process.exit[0];
 }
 
 function startCalculator(){
@@ -53,7 +54,7 @@ function startCalculator(){
 
 
 function calculator(){
-	var calcChoice = sget("Please select the number of which calculation you would like to perform.\nType 'quit' to exit.\n1. Addition\n2. Subtraction\n3. Multiplication\n4. Division\n5. Square Root");
+	var calcChoice = sget("Please select the number of which calculation you would like to perform.\n1. Addition\n2. Subtraction\n3. Multiplication\n4. Division\n5. Square Root\n6. Quit");
 	calcChoice = parseInt(calcChoice);
 		switch(calcChoice){
 			case 1:
