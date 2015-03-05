@@ -1,4 +1,5 @@
-/*  switch/case  for all of the options
+/*  PSEUDOCODE
+switch/case  for all of the options
 functions for each case/option
 sget for userinput
 quit function
@@ -11,35 +12,61 @@ startCalculator();
 function addition(){
 	var firstNumber = Number(sget("Please enter your first number."));
 	var secondNumber = Number(sget("Please enter your second number."));
+	if(!isNaN(firstNumber) && !isNaN(secondNumber)){
 	var answer = firstNumber + secondNumber;
 	console.log("The sum of " + firstNumber + " and " + secondNumber + " is " + answer + ".");
+	} else {
+		console.log("Not a valid choice.\nPlease try again.");
+		addition();
+	}
 }
 
 function subtraction(){
 	var firstNumber = Number(sget("Please enter your first number."));
 	var secondNumber = Number(sget("Please enter your second number."));
+	if(!isNaN(firstNumber) && !isNaN(secondNumber)){
 	var answer = firstNumber - secondNumber;
 	console.log("The difference of " + firstNumber + " and " + secondNumber + " is " + answer + ".");
+	} else {
+		console.log("Not a valid choice.\nPlease try again.");
+		subtraction();
+	}
 }
 
 function multiplication(){
 	var firstNumber = Number(sget("Please enter your first number."));
 	var secondNumber = Number(sget("Please enter your second number."));
+	if(!isNaN(firstNumber) && !isNaN(secondNumber)){
 	var answer = firstNumber * secondNumber;
 	console.log("The product of " + firstNumber + " and " + secondNumber + " is " + answer + ".");
+	} else {
+		console.log("Not a valid choice.\nPlease try again.");
+		multiplication();
+	}
 }
 
 function division(){
 	var firstNumber = Number(sget("Please enter your first number."));
 	var secondNumber = Number(sget("Please enter your second number."));
-	var answer = firstNumber/secondNumber;
-	console.log("The quotient of " + firstNumber + " and " + secondNumber + " is " + answer + ".");
+	if(!isNaN(firstNumber) && !isNaN(secondNumber)){
+		var answer = firstNumber/secondNumber;
+		console.log("The quotient of " + firstNumber + " and " + secondNumber + " is " + answer + ".");
+	} else {
+		console.log("Not a valid choice.\nPlease try again.");
+		division();
+	}
+
 }
 
 function squareRoot(){
 	var firstNumber = Number(sget("Please enter your number."));
 	var answer = Math.sqrt(firstNumber);
+	if(!isNaN(firstNumber)){
 	console.log("The square root of " + firstNumber +  " is " + answer + ".");
+	} else {
+		console.log("Not a valid choice.\nPlease try again.");
+		squareRoot();
+	}
 }
 
 function quitCalculator(){
