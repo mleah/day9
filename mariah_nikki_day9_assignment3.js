@@ -23,7 +23,7 @@ function startGame(){
 
 
 function userChoices(){
-	var userInput = sget("Please choose a number. \n1.Guess a letter\n2.Guess the word\n3.Get a hint\n4.See what letter's you've guessed\n5.Quit").trim().toLowerCase();
+	var userInput = sget("\nPlease choose a number.\n1.Guess a letter\n2.Guess the word\n3.Get a hint\n4.See what letter's you've guessed\n5.Quit").trim();
 	switch(userInput){
 
 		case "1": 
@@ -40,6 +40,8 @@ function userChoices(){
 
 		case "4":
 			console.log("These are the letters that you've guessed " + lettersGuessedArray);
+			//add in word with filled in letters
+			userChoices();
 		break;
 
 		case "5":
@@ -52,6 +54,7 @@ function userChoices(){
 		break;
 	}
 }
+
 
 function validateLetters(letterChoice){
 	var wordAsLetters = word.split('');
@@ -76,6 +79,27 @@ function validateLetters(letterChoice){
 }
 function chooseALetter (){
 	var letterChoice = sget("Please guess a letter").trim().toLowerCase();
+	checkCharacters(letterChoice);
+
+
+}
+
+function checkCharacters(letterChoice){
+	if(letterChoice.length === 1){  //this works 
+ 		if(letterChoice.value.match(/^[a-z]+$/)){  //this doesn't work
+   			 letterGuessedYet(letterChoice);
+  		}  else  {   
+   			console.log("Invalid input, please try again.");   
+   			chooseALetter();  
+  		}} 
+  	else{
+  		console.log("Invalid input, please try again.");
+  		chooseALetter();
+  	} 
+
+}
+
+function letterGuessedYet(letterChoice){
 	var letterChecker = lettersGuessedArray.indexOf(letterChoice);
 	if (letterChecker > -1){
 		console.log("You already guessed that letter, please guess again.");
@@ -85,6 +109,7 @@ function chooseALetter (){
 	lettersGuessedArray.push(letterChoice);
 	validateLetters(letterChoice);
 	}
+
 }
 //array make it same length as array that holds word they are trying to guess
 //use a for looop to check each letter
@@ -101,10 +126,6 @@ function lose(){
 
 function winGame (){}
 
-function lettersGuessed(){
-	for(i = 0; i < lettersGuessedArray.length; i++){
-		console.log("You've guessed the following letters..." + lettersGuessedArray[i]);
-	}
-}
+
 
 
