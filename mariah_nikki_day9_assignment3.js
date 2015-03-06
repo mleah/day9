@@ -21,30 +21,34 @@ function startGame(){
 	userChoices();
 }
 
-function endGame (){}
 
 function userChoices(){
-	var userInput = sget("Please guess a letter").trim().toLowerCase();
+	var userInput = sget("Please choose a number. \n1.Guess a letter\n2.Guess the word\n3.Get a hint\n4.See what letter's you've guessed\n5.Quit").trim().toLowerCase();
 	switch(userInput){
-		case 1:
+
+		case "1": 
+			chooseALetter();
 		break;
 
-		case 2:
+		case "2":
+			//function for guessing a word
 		break;
 
-		case 3:
+		case "3":
+			//function for getting a hint
 		break;
 
-		case 4:
+		case "4":
+			console.log("These are the letters that you've guessed " + lettersGuessedArray);
 		break;
 
-		case 5:
-		break;
-
-		case 6:
+		case "5":
+			console.log("Thanks for playing!");
 		break;
 
 		default:
+			console.log("Invalid input, please try again!");
+			userChoices();
 		break;
 	}
 }
@@ -95,7 +99,7 @@ function lose(){
 	process.exit[0];
 }
 
-
+function winGame (){}
 
 function lettersGuessed(){
 	for(i = 0; i < lettersGuessedArray.length; i++){
