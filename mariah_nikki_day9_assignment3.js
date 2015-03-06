@@ -74,7 +74,7 @@ function validateLetters(letterChoice){
 				userChoices();
 			}
 
-	}
+	}//testing
 
 }
 function chooseALetter (){
