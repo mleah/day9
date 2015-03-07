@@ -86,7 +86,7 @@ function chooseALetter (){
 
 function checkCharacters(letterChoice){
 	if(letterChoice.length === 1){  //this works 
- 		if(letterChoice.value.match(/^[a-z]+$/)){  //this doesn't work
+ 		if(letterChoice === letterChoice.replace( /[^a-z]/g, " ")){  //this works now!!
    			 letterGuessedYet(letterChoice);
   		}  else  {   
    			console.log("Invalid input, please try again.");   
