@@ -12,21 +12,24 @@ var sget = require("sget");
 var wordsArray = ['detroit', 'kenshair', 'llamas', 'slackbot', 'commandline'];
 var word = wordsArray[Math.floor(Math.random() * wordsArray.length)];
 var lettersGuessedArray = [];
-var wrongGuesses = 3;
+var wrongGuesses = 4;
 startGame();
 
 function startGame(){
-	console.log("Welcome to Mariah & Nikki's Hangman Game!");
-	console.log("Your word is " + word.length + " letters long.");
+	console.log("\n-----------------------------------------------");
+	console.log("  Welcome to Mariah & Nikki's Hangman Game!");
+	console.log("       Your word is " + word.length + " letters long.");
+	console.log("-----------------------------------------------\n");
 	userChoices();
 }
 
 
 function userChoices(){
-	var userInput = sget("\nPlease choose a number.\n1.Guess a letter\n2.Guess the word\n3.Get a hint\n4.See what letter's you've guessed\n5.Quit").trim();
+	var userInput = sget("\nPlease choose a number.\n1.Guess a letter\n2.Guess the word\n3.Get a hint\n4.See what letter's you've guessed\n5.Quit\n").trim();
 	switch(userInput){
 
 		case "1": 
+			console.log("\n---------------------------------------"); 
 			chooseALetter();
 		break;
 
@@ -89,11 +92,11 @@ function checkCharacters(letterChoice){
  		if(letterChoice === letterChoice.replace( /[^a-z]/g, " ")){  //this works now!!
    			 letterGuessedYet(letterChoice);
   		}  else  {   
-   			console.log("Invalid input, please try again.");   
+   			console.log("\nInvalid input, please try again.");   
    			chooseALetter();  
   		}} 
   	else{
-  		console.log("Invalid input, please try again.");
+  		console.log("\nInvalid input, please try again.");
   		chooseALetter();
   	} 
 
@@ -102,7 +105,7 @@ function checkCharacters(letterChoice){
 function letterGuessedYet(letterChoice){
 	var letterChecker = lettersGuessedArray.indexOf(letterChoice);
 	if (letterChecker > -1){
-		console.log("You already guessed that letter, please guess again.");
+		console.log("/nYou already guessed that letter, please guess again.");
 		userChoices();
 	}
 	else{
@@ -120,11 +123,24 @@ function letterGuessedYet(letterChoice){
 
 
 function lose(){
-	console.log("WOMP WOMP.\n  YOU LOSE, SORRY!")
+	console.log("\n--------------------------------\n");
+	console.log("           ----------           ");
+	console.log("           |       ||           ");
+	console.log("           O       ||           ");
+	console.log("          \\|/      ||           ");
+	console.log("           |       ||           ");
+	console.log("          / \\      ||           ");
+	console.log("                   ||           ");
+	console.log("                   ||           ");
+	console.log("         ---------------        \n");
+	console.log("\n--------------------------------\n");
+	console.log("  WOMP WOMP.\n  YOU LOSE, SORRY!");
 	process.exit[0];
 }
 
-function winGame (){}
+function winGame (){
+	console.log("Congratulations!  You have correctly guessed the word!\nHere is the final word and all the letters you guessed:")
+}
 
 
 
