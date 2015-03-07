@@ -12,7 +12,7 @@ var sget = require("sget");
 chooseWord();
 
 function chooseWord(){
-	var chosenWord = sget("Please type a word.  This program will check to see if the word is a palindrome.").trim().toLowerCase().replace( /[^a-zA-Z]/g, ""); 
+	var chosenWord = sget("Please type a word.  This program will check to see if the word is a palindrome.").trim().toLowerCase().replace( /[^a-z]/g, ""); 
 	reverseWord(chosenWord);
 }
 
