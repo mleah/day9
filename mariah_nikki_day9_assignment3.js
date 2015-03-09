@@ -127,10 +127,13 @@ function validateLetters(letterChoice){
 
 function guessWord(){
 	var fullGuessWord = sget("\nPlease enter your guess.\n").trim().toLowerCase;
+	console.log("FUllguessword " + fullGuessWord);//debugging  this is returning "FUllguessword function toLowerCase() { [native code] }"
 	if (fullGuessWord === word){
+		console.log("FUllguessword " + fullGuessWord + " word is " + word);//debugging
 		console.log("\nCongratulations!  You have correctly guessed thw word!\nHere is the final word: " + word + "\n");
 	} else { // need to refactor this since it is now here and in validate letters function
 		console.log("\nIncorrect!\n");
+		console.log("FUllguessword " + fullGuessWord + " word is " + word);
 		wrongGuesses --;
 		console.log("You have " + wrongGuesses+" wrong guesses left!\n");
 		console.log("\n-------------------------------------------\n");
