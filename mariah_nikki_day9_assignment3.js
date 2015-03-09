@@ -1,11 +1,3 @@
-/*
-NEEDS TO STILL BE DONE
-Refactor-there are several lines reused in several functions
-figure out how to fix the hint function so it doesn't show already guessed letters
-figure out how to display correct guessed letters in correct spot
-make it pretty
-NEED TO FIX GUESS WORD function 
-*/
 
 var sget = require("sget");
 var wordsArray = ['github', 'kenshair', 'tacos', 'slackbot', 'terminal'];
@@ -49,6 +41,11 @@ function userChoices(){
 			console.log("\nThanks for playing!\n");
 		break;
 
+		case "":
+			console.log("\nPlease make sure to input a number! Please try again!\n");
+			userChoices();
+		break;
+
 		default:
 			console.log("\nInvalid input, please try again!\n");
 			userChoices();
@@ -85,8 +82,8 @@ function letterGuessedYet(letterChoice){
 		userChoices();
 	}
 	else{
-	lettersGuessedArray.push(letterChoice);
-	validateLetters(letterChoice);
+		lettersGuessedArray.push(letterChoice);
+		validateLetters(letterChoice);
 	}
 
 }
@@ -147,6 +144,7 @@ function guessWord(){
 
 function giveHint(){
 	if (hints > 0){
+		hints--;
 		console.log("\nHere is your hint!\n");
 		console.log(pickHintLetter());
 	}
@@ -155,7 +153,6 @@ function giveHint(){
 		console.log("\nYou have no hints left!");
 	}
 
-	hints--;
 	userChoices();
 
 }
@@ -169,9 +166,7 @@ function pickHintLetter(){
 
 
 function seeStatus(){
-	console.log("\nThese are the letters that you've guessed: " + lettersGuessedArray + "\n\nYour word is " + word.length + " letters long.  Here is what you've filled in so far: " + wordDashes +"\n");
-	console.log("You have " + hints +" hint(s) left.\n");
-	console.log("You have " + wrongGuesses+" wrong guesses left!\n");
+	console.log("\nThese are the letters that you've guessed: " + lettersGuessedArray + "\n\nYour word is " + word.length + " letters long.  Here is what you've filled in so far: " + wordDashes +"\nYou have " + hints +" hint(s) left.\nYou have " + wrongGuesses+" wrong guesses left!\n");
 	userChoices();
 }
 
