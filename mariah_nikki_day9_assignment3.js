@@ -1,11 +1,10 @@
 /*
-Hangman
-give user word's length
-allow user to guess a number of times
-should keep track of letters the user has guessed and keep them on display
-should offer up to 2 1-letter hints on request
-create 2 arrays and one function with a loop to display the where a letter goes if guessed correctly
-need to set user guess equal to true if they guess the whole word correctly on one of the guesses
+NEEDS TO STILL BE DONE
+Refactor-there are several lines reused in several functions
+figure out how to fix the hint function so it doesn't show already guessed letters
+figure out how to display correct guessed letters in correct spot
+make it pretty
+NEED TO FIX GUESS WORD function 
 */
 
 var sget = require("sget");
@@ -37,7 +36,7 @@ function userChoices(){
 		break;
 
 		case "2":
-			//function for guessing a word
+			guessWord();
 		break;
 
 		case "3":
@@ -100,14 +99,11 @@ function validateLetters(letterChoice){
 	var isYourLetterThere = wordAsLetters.indexOf(letterChoice);
 	if (isYourLetterThere > -1){
 		console.log("\nGreat guess! " + letterChoice + " is in the word!\n");
-		console.log("guessedWord before push! " + guessedWord );
 		guessedWord.push(letterChoice);
-		console.log("guessedWord after push! " + guessedWord );
-		userChoices();
-	}
-	else{
+		winGame();
+	} else{
 		console.log("\nIncorrect!\n");
-		wrongGuesses = wrongGuesses - 1;
+		wrongGuesses --;
 		console.log("You have " + wrongGuesses+" wrong guesses left!\n");
 		console.log("\n-------------------------------------------\n");
 			if(wrongGuesses <= 0){
@@ -127,6 +123,27 @@ function validateLetters(letterChoice){
 
 
 //hints  select word, array of hints
+
+
+function guessWord(){
+	var fullGuessWord = sget("\nPlease enter your guess.\n").trim().toLowerCase;
+	if (fullGuessWord === word){
+		console.log("\nCongratulations!  You have correctly guessed thw word!\nHere is the final word: " + word + "\n");
+	} else { // need to refactor this since it is now here and in validate letters function
+		console.log("\nIncorrect!\n");
+		wrongGuesses --;
+		console.log("You have " + wrongGuesses+" wrong guesses left!\n");
+		console.log("\n-------------------------------------------\n");
+			if(wrongGuesses <= 0){
+				lose();
+			}
+			else{
+				userChoices();
+			}
+	}
+}
+
+
 function giveHint(){
 	if (hints>0){
 		console.log("\nHere is your hint!\n");
@@ -177,8 +194,8 @@ function lose(){
 }
 
 function winGame (){
-	if (guessedWord.length === guessedWord.length){
-		console.log("\nCongratulations!  You have correctly guessed the word!\nHere is the final word: " + word);
+	if (word.length === guessedWord.length){
+		console.log("\nCongratulations!  You have correctly guessed all the letters!\nHere is the final word: " + word + "\n");
 	}else{
 		userChoices();
 	}
