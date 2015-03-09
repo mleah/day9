@@ -110,31 +110,18 @@ function validateLetters(letterChoice){
 			else{
 				userChoices();
 			}
-
 	}
-
 }
 
 
 function replaceDash(letterChoice){
-
-	console.log(letterChoice);
-	console.log(word.indexOf(letterChoice));
-
 	for(i = 0 ; i < word.length ; i++){
 		if (word.indexOf(letterChoice) === i) {
-			var letterIndex = word.charAt(i);
-
-			console.log("This is letter index (which character at that index) " + letterIndex);
-
 
 			wordDashes = wordDashes.substr(0, i) + letterChoice + wordDashes.substr(i + 1);
 
-			console.log("This is wordDashes " + wordDashes);
-	
-	} else {
-		console.log("jk not working");
-		}
+			console.log("This is your updated word: " + wordDashes);
+		} 
 	}
 }
 
@@ -142,20 +129,16 @@ function replaceDash(letterChoice){
 
 function guessWord(){
 	var fullGuessWord = sget("\nPlease enter your guess.\n").trim().toLowerCase();
-	console.log("FUllguessword " + fullGuessWord);
+	
 	if (fullGuessWord === word){
-		console.log("FUllguessword " + fullGuessWord + " word is " + word);//debugging
+		
 		console.log("\nCongratulations!  You have correctly guessed the word!\nHere is the final word: " + word + "\n");
-	} else { // need to refactor this since it is now here and in validate letters function
-		console.log("\nIncorrect!\n");
-		console.log("FUllguessword " + fullGuessWord + " word is " + word);
+	} else { 
 		wrongGuesses --;
-		console.log("You have " + wrongGuesses+" wrong guesses left!\n");
-		console.log("\n-------------------------------------------\n");
+		console.log("\nIncorrect!\nYou have " + wrongGuesses +" wrong guesses left!\n\n-------------------------------------------\n");
 			if(wrongGuesses <= 0){
 				lose();
-			}
-			else{
+			} else{
 				userChoices();
 			}
 	}
@@ -163,7 +146,7 @@ function guessWord(){
 
 
 function giveHint(){
-	if (hints>0){
+	if (hints > 0){
 		console.log("\nHere is your hint!\n");
 		console.log(pickHintLetter());
 	}
@@ -179,14 +162,14 @@ function giveHint(){
 
 function pickHintLetter(){
 	for(i=0; i<word.length; i++){
-		if (guessedWord[i] === undefined)
+		if (wordDashes[i] === "_")
 			return word[i];  //this doesn't control for letters already correctly guessed
 	}
 }
 
 
 function seeStatus(){
-	console.log("\nThese are the letters that you've guessed " + lettersGuessedArray + "\nThese are the correct letters that you've guessed " + guessedWord + "\nYour word is " + word.length + " letters long.\n");
+	console.log("\nThese are the letters that you've guessed: " + lettersGuessedArray + "\n\nYour word is " + word.length + " letters long.  Here is what you've filled in so far: " + wordDashes +"\n");
 	console.log("You have " + hints +" hint(s) left.\n");
 	console.log("You have " + wrongGuesses+" wrong guesses left!\n");
 	userChoices();
