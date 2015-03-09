@@ -10,6 +10,7 @@ NEED TO FIX GUESS WORD function
 var sget = require("sget");
 var wordsArray = ['github', 'kenshair', 'tacos', 'slackbot', 'terminal'];
 var word = wordsArray[Math.floor(Math.random() * wordsArray.length)];
+var wordDashes = word.replace(/[a-z]/g, "_");
 var guessedWord = [];
 var lettersGuessedArray = [];
 var wrongGuesses = 4;
@@ -17,11 +18,7 @@ var hints = 2;
 startGame();
 
 function startGame(){
-	console.log("\n-----------------------------------------------");
-	console.log("  Welcome to Mariah & Nikki's Hangman Game!");
-	console.log("        Your word is " + word.length + " letters long.");
-	console.log("-----------------------------------------------\n");
-	console.log("You have 4 guesses before your hangman is complete.\n  You also have 2 hints.\n  Guess wisely....\n");
+	console.log("\n-----------------------------------------------\n  Welcome to Mariah & Nikki's Hangman Game!\n         Your word is " + word.length + " letters long.\n-----------------------------------------------\n\nYou have 4 guesses before your hangman is complete.\nYou also have 2 hints.\nGuess wisely....\n");
 	userChoices();
 }
 
@@ -31,7 +28,7 @@ function userChoices(){
 	switch(userInput){
 
 		case "1": 
-			console.log("\n-------------------------------------------\n"); 
+			console.log("\n-------------------------------------------"); 
 			chooseALetter();
 		break;
 
@@ -44,7 +41,7 @@ function userChoices(){
 		break;
 
 		case "4":
-			console.log("\n-------------------------------------------\n");
+			console.log("\n-------------------------------------------");
 			seeStatus();
 		break;
 
@@ -100,6 +97,7 @@ function validateLetters(letterChoice){
 	if (isYourLetterThere > -1){
 		console.log("\nGreat guess! " + letterChoice + " is in the word!\n");
 		guessedWord.push(letterChoice);
+		replaceDash(letterChoice);
 		winGame();
 	} else{
 		console.log("\nIncorrect!\n");
@@ -113,24 +111,41 @@ function validateLetters(letterChoice){
 				userChoices();
 			}
 
-	}//testing
+	}
 
 }
 
-//array make it same length as array that holds word they are trying to guess
-//use a for looop to check each letter
-//if it does then it 
+
+function replaceDash(letterChoice){
+
+	console.log(letterChoice);
+	console.log(word.indexOf(letterChoice));
+
+	for(i = 0 ; i < word.length ; i++){
+		if (word.indexOf(letterChoice) === i) {
+			var letterIndex = word.charAt(i);
+
+			console.log("This is letter index (which character at that index) " + letterIndex);
 
 
-//hints  select word, array of hints
+			wordDashes = wordDashes.substr(0, i) + letterChoice + wordDashes.substr(i + 1);
+
+			console.log("This is wordDashes " + wordDashes);
+	
+	} else {
+		console.log("jk not working");
+		}
+	}
+}
+
 
 
 function guessWord(){
-	var fullGuessWord = sget("\nPlease enter your guess.\n").trim().toLowerCase;
-	console.log("FUllguessword " + fullGuessWord);//debugging  this is returning "FUllguessword function toLowerCase() { [native code] }"
+	var fullGuessWord = sget("\nPlease enter your guess.\n").trim().toLowerCase();
+	console.log("FUllguessword " + fullGuessWord);
 	if (fullGuessWord === word){
 		console.log("FUllguessword " + fullGuessWord + " word is " + word);//debugging
-		console.log("\nCongratulations!  You have correctly guessed thw word!\nHere is the final word: " + word + "\n");
+		console.log("\nCongratulations!  You have correctly guessed the word!\nHere is the final word: " + word + "\n");
 	} else { // need to refactor this since it is now here and in validate letters function
 		console.log("\nIncorrect!\n");
 		console.log("FUllguessword " + fullGuessWord + " word is " + word);
@@ -171,9 +186,7 @@ function pickHintLetter(){
 
 
 function seeStatus(){
-	console.log("\nThese are the letters that you've guessed " + lettersGuessedArray);
-	console.log("\nThese are the correct letters that you've guessed " + guessedWord);
-	console.log("\nYour word is " + word.length + " letters long.\n");
+	console.log("\nThese are the letters that you've guessed " + lettersGuessedArray + "\nThese are the correct letters that you've guessed " + guessedWord + "\nYour word is " + word.length + " letters long.\n");
 	console.log("You have " + hints +" hint(s) left.\n");
 	console.log("You have " + wrongGuesses+" wrong guesses left!\n");
 	userChoices();
@@ -181,18 +194,7 @@ function seeStatus(){
 
 
 function lose(){
-	console.log("\n--------------------------------\n");
-	console.log("           ----------           ");
-	console.log("           |       ||           ");
-	console.log("           O       ||           ");
-	console.log("          \\|/      ||           ");
-	console.log("           |       ||           ");
-	console.log("          / \\      ||           ");
-	console.log("                   ||           ");
-	console.log("                   ||           ");
-	console.log("         ---------------        \n");
-	console.log("\n--------------------------------\n");
-	console.log("  WOMP WOMP.\n  YOU LOSE, SORRY!");
+	console.log("\n--------------------------------\n           ----------           \n           |       ||           \n           O       ||           \n          \\|/      ||           \n           |       ||           \n          / \\      ||           \n                   ||           \n                   ||           \n         ---------------        \n\n--------------------------------\n  WOMP WOMP.\n  YOU LOSE, SORRY!");
 	process.exit[0];
 }
 
@@ -203,7 +205,6 @@ function winGame (){
 		userChoices();
 	}
 }
-
 
 
 
