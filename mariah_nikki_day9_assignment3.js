@@ -27,11 +27,11 @@ function startGame(){
 
 
 function userChoices(){
-	var userInput = sget("\nPlease choose a number.\n1.Guess a letter\n2.Guess the word\n3.Get a hint\n4.See what letter's you've guessed\n5.Quit\n").trim();
+	var userInput = sget("\nPlease choose a number.\n1.Guess a letter\n2.Guess the word\n3.Get a hint\n4.See your status\n5.Quit\n").trim();
 	switch(userInput){
 
 		case "1": 
-			console.log("\n---------------------------------------"); 
+			console.log("\n-------------------------------------------\n"); 
 			chooseALetter();
 		break;
 
@@ -44,17 +44,18 @@ function userChoices(){
 		break;
 
 		case "4":
-			console.log("These are the letters that you've guessed " + lettersGuessedArray);
+			console.log("\n-------------------------------------------\n");
+			console.log("\nThese are the letters that you've guessed " + lettersGuessedArray);
 			//add in word with filled in letters
 			userChoices();
 		break;
 
 		case "5":
-			console.log("Thanks for playing!");
+			console.log("\nThanks for playing!\n");
 		break;
 
 		default:
-			console.log("Invalid input, please try again!\n");
+			console.log("\nInvalid input, please try again!\n");
 			userChoices();
 		break;
 	}
@@ -65,13 +66,15 @@ function validateLetters(letterChoice){
 	var wordAsLetters = word.split('');
 	var isYourLetterThere = wordAsLetters.indexOf(letterChoice);
 	if (isYourLetterThere > -1){
-		console.log("Great guess! " + letterChoice + " is in the word!");
+		console.log("\nGreat guess! " + letterChoice + " is in the word!\n");
+		guessedWord.push(letterChoice);
 		userChoices();
 	}
 	else{
-		console.log("Incorrect!");
+		console.log("\nIncorrect!\n");
 		wrongGuesses = wrongGuesses - 1;
-		console.log(wrongGuesses);
+		console.log("You have " + wrongGuesses+" wrong guesses left!\n");
+		console.log("\n-------------------------------------------\n");
 			if(wrongGuesses <= 0){
 				lose();
 			}
@@ -83,7 +86,7 @@ function validateLetters(letterChoice){
 
 }
 function chooseALetter (){
-	var letterChoice = sget("Please guess a letter\n").trim().toLowerCase();
+	var letterChoice = sget("\nPlease guess a letter\n").trim().toLowerCase();
 	checkCharacters(letterChoice);
 
 
@@ -107,7 +110,7 @@ function checkCharacters(letterChoice){
 function letterGuessedYet(letterChoice){
 	var letterChecker = lettersGuessedArray.indexOf(letterChoice);
 	if (letterChecker > -1){
-		console.log("/nYou already guessed that letter, please guess again.");
+		console.log("\nYou already guessed that letter, please guess again.\n");
 		userChoices();
 	}
 	else{
@@ -124,12 +127,12 @@ function letterGuessedYet(letterChoice){
 //hints  select word, array of hints
 function giveHint(){
 	if (hints>0){
-		console.log("Here is your hint!\n");
+		console.log("\nHere is your hint!\n");
 		console.log(pickHintLetter());
 	}
 	
 	else{
-		console.log("You have no hints left!");
+		console.log("\nYou have no hints left!");
 	}
 
 	hints--;
@@ -163,7 +166,7 @@ function lose(){
 }
 
 function winGame (){
-	console.log("Congratulations!  You have correctly guessed the word!\nHere is the final word and all the letters you guessed:")
+	console.log("\nCongratulations!  You have correctly guessed the word!\nHere is the final word and all the letters you guessed:")
 }
 
 
