@@ -9,9 +9,9 @@ need to set user guess equal to true if they guess the whole word correctly on o
 */
 
 var sget = require("sget");
-var wordsArray = ['detroit', 'kenshair', 'llamas', 'slackbot', 'commandline'];
+var wordsArray = ['github', 'kenshair', 'tacos', 'slackbot', 'terminal'];
 var word = wordsArray[Math.floor(Math.random() * wordsArray.length)];
-var guessedWord = new Array(word.length);
+var guessedWord = [];
 var lettersGuessedArray = [];
 var wrongGuesses = 4;
 var hints = 2;
@@ -20,8 +20,9 @@ startGame();
 function startGame(){
 	console.log("\n-----------------------------------------------");
 	console.log("  Welcome to Mariah & Nikki's Hangman Game!");
-	console.log("       Your word is " + word.length + " letters long.");
+	console.log("        Your word is " + word.length + " letters long.");
 	console.log("-----------------------------------------------\n");
+	console.log("You have 4 guesses before your hangman is complete.\n  You also have 2 hints.\n  Guess wisely....\n");
 	userChoices();
 }
 
@@ -45,9 +46,7 @@ function userChoices(){
 
 		case "4":
 			console.log("\n-------------------------------------------\n");
-			console.log("\nThese are the letters that you've guessed " + lettersGuessedArray);
-			//add in word with filled in letters
-			userChoices();
+			seeStatus();
 		break;
 
 		case "5":
@@ -62,35 +61,11 @@ function userChoices(){
 }
 
 
-function validateLetters(letterChoice){
-	var wordAsLetters = word.split('');
-	var isYourLetterThere = wordAsLetters.indexOf(letterChoice);
-	if (isYourLetterThere > -1){
-		console.log("\nGreat guess! " + letterChoice + " is in the word!\n");
-		guessedWord.push(letterChoice);
-		userChoices();
-	}
-	else{
-		console.log("\nIncorrect!\n");
-		wrongGuesses = wrongGuesses - 1;
-		console.log("You have " + wrongGuesses+" wrong guesses left!\n");
-		console.log("\n-------------------------------------------\n");
-			if(wrongGuesses <= 0){
-				lose();
-			}
-			else{
-				userChoices();
-			}
-
-	}//testing
-
-}
 function chooseALetter (){
 	var letterChoice = sget("\nPlease guess a letter\n").trim().toLowerCase();
 	checkCharacters(letterChoice);
-
-
 }
+
 
 function checkCharacters(letterChoice){
 	if(letterChoice.length === 1){  //this works 
@@ -119,6 +94,33 @@ function letterGuessedYet(letterChoice){
 	}
 
 }
+
+function validateLetters(letterChoice){
+	var wordAsLetters = word.split('');
+	var isYourLetterThere = wordAsLetters.indexOf(letterChoice);
+	if (isYourLetterThere > -1){
+		console.log("\nGreat guess! " + letterChoice + " is in the word!\n");
+		console.log("guessedWord before push! " + guessedWord );
+		guessedWord.push(letterChoice);
+		console.log("guessedWord after push! " + guessedWord );
+		userChoices();
+	}
+	else{
+		console.log("\nIncorrect!\n");
+		wrongGuesses = wrongGuesses - 1;
+		console.log("You have " + wrongGuesses+" wrong guesses left!\n");
+		console.log("\n-------------------------------------------\n");
+			if(wrongGuesses <= 0){
+				lose();
+			}
+			else{
+				userChoices();
+			}
+
+	}//testing
+
+}
+
 //array make it same length as array that holds word they are trying to guess
 //use a for looop to check each letter
 //if it does then it 
@@ -143,10 +145,19 @@ function giveHint(){
 function pickHintLetter(){
 	for(i=0; i<word.length; i++){
 		if (guessedWord[i] === undefined)
-			return word[i];
+			return word[i];  //this doesn't control for letters already correctly guessed
 	}
 }
 
+
+function seeStatus(){
+	console.log("\nThese are the letters that you've guessed " + lettersGuessedArray);
+	console.log("\nThese are the correct letters that you've guessed " + guessedWord);
+	console.log("\nYour word is " + word.length + " letters long.\n");
+	console.log("You have " + hints +" hint(s) left.\n");
+	console.log("You have " + wrongGuesses+" wrong guesses left!\n");
+	userChoices();
+}
 
 
 function lose(){
@@ -166,7 +177,11 @@ function lose(){
 }
 
 function winGame (){
-	console.log("\nCongratulations!  You have correctly guessed the word!\nHere is the final word and all the letters you guessed:")
+	if (guessedWord.length === guessedWord.length){
+		console.log("\nCongratulations!  You have correctly guessed the word!\nHere is the final word: " + word);
+	}else{
+		userChoices();
+	}
 }
 
 
