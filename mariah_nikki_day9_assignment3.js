@@ -11,8 +11,10 @@ need to set user guess equal to true if they guess the whole word correctly on o
 var sget = require("sget");
 var wordsArray = ['detroit', 'kenshair', 'llamas', 'slackbot', 'commandline'];
 var word = wordsArray[Math.floor(Math.random() * wordsArray.length)];
+var guessedWord = new Array(word.length);
 var lettersGuessedArray = [];
 var wrongGuesses = 4;
+var hints = 2;
 startGame();
 
 function startGame(){
@@ -38,7 +40,7 @@ function userChoices(){
 		break;
 
 		case "3":
-			//function for getting a hint
+			giveHint();
 		break;
 
 		case "4":
@@ -52,7 +54,7 @@ function userChoices(){
 		break;
 
 		default:
-			console.log("Invalid input, please try again!");
+			console.log("Invalid input, please try again!\n");
 			userChoices();
 		break;
 	}
@@ -81,7 +83,7 @@ function validateLetters(letterChoice){
 
 }
 function chooseALetter (){
-	var letterChoice = sget("Please guess a letter").trim().toLowerCase();
+	var letterChoice = sget("Please guess a letter\n").trim().toLowerCase();
 	checkCharacters(letterChoice);
 
 
@@ -92,11 +94,11 @@ function checkCharacters(letterChoice){
  		if(letterChoice === letterChoice.replace( /[^a-z]/g, " ")){  //this works now!!
    			 letterGuessedYet(letterChoice);
   		}  else  {   
-   			console.log("\nInvalid input, please try again.");   
+   			console.log("\nInvalid input, please try again.\n");   
    			chooseALetter();  
   		}} 
   	else{
-  		console.log("\nInvalid input, please try again.");
+  		console.log("\nInvalid input, please try again.\n");
   		chooseALetter();
   	} 
 
@@ -120,6 +122,28 @@ function letterGuessedYet(letterChoice){
 
 
 //hints  select word, array of hints
+function giveHint(){
+	if (hints>0){
+		console.log("Here is your hint!\n");
+		console.log(pickHintLetter());
+	}
+	
+	else{
+		console.log("You have no hints left!");
+	}
+
+	hints--;
+	userChoices();
+
+}
+
+function pickHintLetter(){
+	for(i=0; i<word.length; i++){
+		if (guessedWord[i] === undefined)
+			return word[i];
+	}
+}
+
 
 
 function lose(){
